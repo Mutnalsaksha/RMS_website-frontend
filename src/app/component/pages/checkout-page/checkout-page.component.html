@@ -1,0 +1,61 @@
+<app-header></app-header>
+<section class="book_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>Order Form</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form_container">
+          <form (ngSubmit)="bookOrder()">
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Your Name" [(ngModel)]="name" name="name" required (input)="checkName()">
+              <div class="alert" *ngIf="nameError">{{ nameError }}</div>
+            </div>
+
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Phone Number" [(ngModel)]="phoneNumber" name="phoneNumber" required (input)="onPhoneNumberChange()">
+              <div class="alert" *ngIf="phoneError">{{ phoneError }}</div>
+            </div>
+            <div class="mb-3">
+              <input type="email" class="form-control" placeholder="Your email" [(ngModel)]="email" name="email" required>
+              <div class="alert" *ngIf="emailError">{{ emailError }}</div>
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Your Address" [(ngModel)]="address" name="address" required (input)="checkAddress()">
+              <div class="alert" *ngIf="addressError">{{ addressError }}</div>
+            </div>
+
+
+            <div class="mb-3">
+              <select class="form-control nice-select wide" [(ngModel)]="paymentType"  name="paymentType" required >
+                <option value="null" disabled selected>select payment method</option>
+                <option value="Cash on delivery">Cash on delivery</option>
+              </select>
+              <div class="alert" *ngIf="personsError">{{ personsError }}</div>
+            </div>
+
+            <div class="btn_box">
+              <button type="submit" class="book_now_btn" style="border: 1px solid #000000;">Place Order</button>
+            </div>
+          </form>
+          <!-- Confirmation message -->
+          <div *ngIf="submissionSuccess" class="success-message">
+            <p>Your order has been successfully submitted.</p>
+          </div>
+
+          <!-- Error message -->
+          <div *ngIf="errorMessage" class="error-message" style="color: red;">
+            <p>{{ errorMessage }}</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <order-items-list [order]="order"></order-items-list>
+  <!-- <div class="btn_box">
+    <button type="submit" class="book_now_btn" style="border: 1px solid #000000;">Place Order</button>
+  </div> -->
+</section>
