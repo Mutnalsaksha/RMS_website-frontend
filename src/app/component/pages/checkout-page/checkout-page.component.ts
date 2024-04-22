@@ -63,6 +63,8 @@ throw new Error('Method not implemented.');
 
   bookOrder() {
     if (this.isValidForm()) {
+      console.log('Items:', this.items);
+
       const orderData = {
         name: this.name,
         phoneNumber: this.phoneNumber,
@@ -79,7 +81,7 @@ throw new Error('Method not implemented.');
 
 
       this.addressService.bookOrder(orderData).subscribe(
-        (response: BookingResponse) => {
+        (response) => {
           console.log('Order booked successfully', response);
           this.submissionSuccess = true;
           setTimeout(() => {
