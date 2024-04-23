@@ -39,15 +39,15 @@
               <button type="submit" class="book_now_btn" style="border: 1px solid #000000;">Place Order</button>
             </div>
           </form>
-          <!-- Confirmation message -->
-          <div *ngIf="submissionSuccess" class="success-message">
-            <p>Your order has been successfully submitted.</p>
-          </div>
+<!--          &lt;!&ndash; Confirmation message &ndash;&gt;-->
+<!--          <div *ngIf="submissionSuccess" class="success-message">-->
+<!--            <p>Your order has been successfully submitted.</p>-->
+<!--          </div>-->
 
-          <!-- Error message -->
-          <div *ngIf="errorMessage" class="error-message" style="color: red;">
-            <p>{{ errorMessage }}</p>
-          </div>
+<!--          &lt;!&ndash; Error message &ndash;&gt;-->
+<!--          <div *ngIf="errorMessage" class="error-message" style="color: red;">-->
+<!--            <p>{{ errorMessage }}</p>-->
+<!--          </div>-->
 
         </div>
       </div>
@@ -59,3 +59,18 @@
     <button type="submit" class="book_now_btn" style="border: 1px solid #000000;">Place Order</button>
   </div> -->
 </section>
+
+
+
+<!-- Confirmation message -->
+<div *ngIf="submissionSuccess" class="confirmation-overlay">
+  <div class="confirmation-message">
+    <p>Your order has been successfully submitted.</p>
+  </div>
+</div>
+<canvas id="confettiCanvas"></canvas>
+<!--&lt;!&ndash; Confetti Animation &ndash;&gt;-->
+<!--<div class="confetti-container" *ngIf="submissionSuccess">-->
+<!--  <div class="confetti" *ngFor="let confetti of confettis"></div>-->
+<!--</div>-->
+

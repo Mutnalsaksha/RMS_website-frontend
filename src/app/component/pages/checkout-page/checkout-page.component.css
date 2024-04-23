@@ -188,4 +188,72 @@ h2{
   border-radius: 4px; /* Rounded corners */
 }
 
+/*//from here*/
+/* Add this CSS to your global stylesheet or component stylesheet */
+.confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(43, 126, 59); /* Semi-transparent green */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmation-message {
+  color: white; /* White text color */
+  font-size: 32px; /* Larger font size */
+  animation: fadeInUp 0.5s ease; /* Fade in animation */
+  padding: 20px; /* Add padding for better readability */
+}
+
+/* New CSS for confetti animation */
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.confetti {
+  width: 10px;
+  height: 20px;
+  background: #f00; /* Red color */
+  position: absolute;
+  top: -20px;
+  opacity: 0.8;
+  animation: confetti-fall 4s ease infinite;
+}
+
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-50vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1; /* Fade in over the first 10% of the animation */
+  }
+  90% {
+    opacity: 1; /* Maintain opacity for most of the animation */
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+#confettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+
+
 

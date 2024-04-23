@@ -20,6 +20,8 @@ interface BookingResponse {
 export class CheckoutPageComponent implements OnInit, AfterViewInit {
   items: any[];
 
+
+
 checkAddress() {
 throw new Error('Method not implemented.');
 }
@@ -37,6 +39,8 @@ throw new Error('Method not implemented.');
   errorMessage: string = '';
   order: Order = new Order();
   checkoutForm!: FormGroup;
+
+
 
   constructor(
     private cartService: CartService,
@@ -57,7 +61,109 @@ throw new Error('Method not implemented.');
       name: [name, Validators.required],
       address: [address, Validators.required],
     });
+    this.createConfetti();
   }
+
+  createConfetti() {
+    const canvas = document.getElementById('confettiCanvas') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) {
+      console.error("Failed to get canvas context");
+      return;
+    }
+
+    // Set canvas size to cover the whole viewport
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Confetti colors
+    const confettiColors: string[] = ['#fbc531', '#4cd137', '#487eb0', '#e84118', '#8c7ae6'];
+
+    function randomInRange(min: number, max: number): number {
+      return Math.random() * (max - min) + min;
+    }
+
+    class Confetti {
+      color: string;
+      dimensions: { x: number; y: number };
+      position: { x: number; y: number };
+      rotation: number;
+      speed: { x: number; y: number };
+      scale: { x: number; y: number };
+
+      constructor() {
+        this.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        this.dimensions = {
+          x: randomInRange(5, 10),
+          y: randomInRange(10, 20),
+        };
+        this.position = {
+          x: randomInRange(0, canvas.width),
+          y: canvas.height + Math.random() * 50,
+        };
+        this.rotation = randomInRange(0, 2 * Math.PI);
+        this.speed = {
+          x: randomInRange(-25, 25),
+          y: randomInRange(2, 8),
+        };
+        this.scale = {
+          x: 1,
+          y: 1,
+        };
+      }
+
+      update() {
+        this.position.x += this.speed.x;
+        this.position.y += this.speed.y;
+
+        this.rotation += (this.speed.x / 100) * Math.PI / 180;
+
+        if (this.position.y >= canvas.height) {
+          this.position.x = randomInRange(0, canvas.width);
+          this.position.y = -10;
+        }
+      }
+
+      draw() {
+        if (!ctx) {
+          console.error("Failed to get canvas context");
+          return;
+        }
+        ctx.save();
+        ctx.fillStyle = this.color;
+        ctx.translate(this.position.x + this.dimensions.x / 2, this.position.y + this.dimensions.y / 2);
+        ctx.rotate(this.rotation);
+        ctx.fillRect(-this.dimensions.x / 2, -this.dimensions.y / 2, this.dimensions.x, this.dimensions.y);
+        ctx.restore();
+      }
+    }
+
+    const confettis: Confetti[] = [];
+    const confettiCount = 150;
+
+    for (let i = 0; i < confettiCount; i++) {
+      confettis.push(new Confetti() as Confetti);
+    }
+
+    function animateConfetti() {
+      requestAnimationFrame(animateConfetti);
+      // @ts-ignore
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const confetti of confettis) {
+        confetti.update();
+        confetti.draw();
+      }
+    }
+
+    animateConfetti();
+  }
+
+
+
+
+
 
   ngAfterViewInit(): void {}
 
@@ -84,6 +190,10 @@ throw new Error('Method not implemented.');
         (response) => {
           console.log('Order booked successfully', response);
           this.submissionSuccess = true;
+          this.clearForm();
+
+
+
           setTimeout(() => {
             this.submissionSuccess = false;
           }, 5000);
@@ -149,6 +259,7 @@ throw new Error('Method not implemented.');
     this.name = '';
     this.phoneNumber = '';
     this.email = '';
+    this.address = '';
     this.paymentType = null;
   }
 
