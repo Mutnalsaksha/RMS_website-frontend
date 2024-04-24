@@ -22,9 +22,9 @@ export class CheckoutPageComponent implements OnInit, AfterViewInit {
 
 
 
-checkAddress() {
-throw new Error('Method not implemented.');
-}
+  checkAddress() {
+    throw new Error('Method not implemented.');
+  }
   name: string = '';
   phoneNumber: string = '';
   email: string = '';
@@ -39,7 +39,7 @@ throw new Error('Method not implemented.');
   errorMessage: string = '';
   order: Order = new Order();
   checkoutForm!: FormGroup;
-
+  confettis: any[]=[];
 
 
   constructor(
@@ -61,7 +61,7 @@ throw new Error('Method not implemented.');
       name: [name, Validators.required],
       address: [address, Validators.required],
     });
-    this.createConfetti();
+// this.createConfetti();
   }
 
   createConfetti() {
@@ -73,11 +73,14 @@ throw new Error('Method not implemented.');
       return;
     }
 
-    // Set canvas size to cover the whole viewport
+// // Clear the canvas
+// ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+// Set canvas size to cover the whole viewport
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Confetti colors
+// Confetti colors
     const confettiColors: string[] = ['#fbc531', '#4cd137', '#487eb0', '#e84118', '#8c7ae6'];
 
     function randomInRange(min: number, max: number): number {
@@ -95,17 +98,17 @@ throw new Error('Method not implemented.');
       constructor() {
         this.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
         this.dimensions = {
-          x: randomInRange(5, 10),
+          x: randomInRange(8, 10),
           y: randomInRange(10, 20),
         };
         this.position = {
           x: randomInRange(0, canvas.width),
-          y: canvas.height + Math.random() * 50,
+          y: -10,
         };
         this.rotation = randomInRange(0, 2 * Math.PI);
         this.speed = {
-          x: randomInRange(-25, 25),
-          y: randomInRange(2, 8),
+          x: randomInRange(-5, 5),
+          y: randomInRange(1, 6),
         };
         this.scale = {
           x: 1,
@@ -140,15 +143,23 @@ throw new Error('Method not implemented.');
     }
 
     const confettis: Confetti[] = [];
-    const confettiCount = 150;
+    const confettiCount = 50;
 
     for (let i = 0; i < confettiCount; i++) {
-      confettis.push(new Confetti() as Confetti);
+      confettis.push(new Confetti());
     }
 
-    function animateConfetti() {
-      requestAnimationFrame(animateConfetti);
-      // @ts-ignore
+    let animationFrameId: number;
+// const startTime = performance.now();
+
+    function animateConfetti(elapsed:number) {
+      if (elapsed > 1000) { // Stop after 1 second
+        cancelAnimationFrame(animationFrameId);
+        return;
+      }
+
+      animationFrameId = requestAnimationFrame(animateConfetti);
+// @ts-ignore
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const confetti of confettis) {
@@ -156,8 +167,10 @@ throw new Error('Method not implemented.');
         confetti.draw();
       }
     }
-
-    animateConfetti();
+// Delay the start of the animation by half a second
+    setTimeout(() => {
+      animateConfetti(0);
+    }, 100);
   }
 
 
@@ -192,10 +205,12 @@ throw new Error('Method not implemented.');
           this.submissionSuccess = true;
           this.clearForm();
 
+          this.createConfetti();
 
 
           setTimeout(() => {
             this.submissionSuccess = false;
+            this.clearConfetti();
           }, 5000);
         },
         (error: HttpErrorResponse) => {
@@ -204,7 +219,7 @@ throw new Error('Method not implemented.');
         }
       );
     } else {
-      // Validation errors, do nothing
+// Validation errors, do nothing
     }
   }
 
@@ -239,12 +254,12 @@ throw new Error('Method not implemented.');
     }
 
     if (this.email.trim().length === 0) {
-      this.emailError = 'Please enter your  address.';
+      this.emailError = 'Please enter your address.';
       isValid = false;
     } else if (
       !/^\w+([.-]?\w+)@\w+([.-]?\w+)(\.\w{2,3})+$/.test(this.email.trim())
     ) {
-      this.emailError = 'Please enter a valid  address.';
+      this.emailError = 'Please enter a valid address.';
       isValid = false;
     }
     if (this.paymentType === null) {
@@ -254,6 +269,15 @@ throw new Error('Method not implemented.');
 
     return isValid;
   }
+
+  clearConfetti() {
+    const canvas = document.getElementById('confettiCanvas') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
 
   clearForm() {
     this.name = '';
