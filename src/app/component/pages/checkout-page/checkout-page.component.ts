@@ -152,13 +152,14 @@ export class CheckoutPageComponent implements OnInit, AfterViewInit {
     let animationFrameId: number;
 // const startTime = performance.now();
 
-    function animateConfetti(elapsed:number) {
-      if (elapsed > 1000) { // Stop after 1 second
+    function animateConfetti(startTime:number) {
+      const elapsed = performance.now() - startTime + 500;
+      if (elapsed > 5100) { // Stop after 1 second
         cancelAnimationFrame(animationFrameId);
         return;
       }
 
-      animationFrameId = requestAnimationFrame(animateConfetti);
+      animationFrameId = requestAnimationFrame(()=>animateConfetti(startTime));
 // @ts-ignore
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -169,7 +170,7 @@ export class CheckoutPageComponent implements OnInit, AfterViewInit {
     }
 // Delay the start of the animation by half a second
     setTimeout(() => {
-      animateConfetti(0);
+      animateConfetti(performance.now());
     }, 100);
   }
 
