@@ -1,4 +1,41 @@
+.heading_container {
+  text-align: center; /* Center align the heading */
+}
 
+.container {
+  width:100%;
+  max-width:500px;
+  padding:40px;
+}
+
+.form_container {
+  display: inline-block; /* Make the form container inline-block */
+  text-align: left;
+  padding: 20px;
+  margin: 0 auto; /* Horizontally center the form */
+  max-width: 600px;
+}
+
+.form_container {
+  background: #fff; /* Background color for the form container */
+  padding: 20px;
+  border-radius: 8px; /* Optional: adds rounded corners to the form container */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow to the form container */
+  margin: 0 auto; /* Center the form container horizontally */
+  display: block; /* Override any previous inline-block display */
+}
+
+/* Make the input boxes wider */
+.form-control {
+  width: 100%; /* Set the width to 100% to make the input boxes wider */
+}
+
+/* Add margin to push the form to the middle of the page */
+@media screen and (min-width: 600px) {
+  .form_container {
+    width: 400px; /* Adjust the width of the form container as needed */
+  }
+}
 
 .book a
 {
@@ -19,6 +56,7 @@ h2{
 
 
 .book_now_btn {
+  margin-top: 10px;
   background-color: #ffffff; /* Set your default background color */
   color: #000000; /* Set your default text color */
   transition: background-color 0.3s ease; /* Add a smooth transition effect */

@@ -19,17 +19,20 @@ a:hover{
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 a.logo{
   font-weight: bold;
   padding: 1rem;
+  margin-right: auto;
 }
 
 ul{
   display: flex;
   list-style-type: none;
   margin: 0;
+  padding:0;
 }
 
 ul a{

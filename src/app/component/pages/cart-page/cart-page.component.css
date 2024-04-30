@@ -31,9 +31,9 @@ ul li:last-child{
 }
 
 li img{
-  width: 5rem;
-  height: 5rem;
-  border-radius: 100rem;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 100%;
   object-fit: cover;
 }
 
@@ -55,17 +55,17 @@ li select{
 }
 
 li .remove-button{
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   border: none;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   color: #e72929;
   opacity: 0.7;
   outline: none;
+  cursor: pointer; /* Set cursor to pointer */
 }
 
 li .remove-button:hover{
   opacity: 1;
-  cursor: pointer;
 }
 
 .checkout{
@@ -77,8 +77,10 @@ li .remove-button:hover{
   height: 20rem;
   border: 1px solid #ffbbbb;
   border-radius: 1rem;
-  padding: 0.5rem;
+  padding: 1rem;
   margin: 0.5rem;
+  text-align: center; /* Center align button */
+  background-color: #f9f9f9;
 }
 
 .checkout>div{
@@ -105,13 +107,19 @@ li .remove-button:hover{
   color: grey;
 }
 
+/*.foods-count::before,*/
+/*.total-price::before {*/
+/*  content: attr(data-label); !* Use attr(data-label) for pseudo elements *!*/
+/*  color: grey;*/
+/*}*/
+
 .checkout a{
   padding: 1rem;
   color: white;
   background:#e72929;
   display: block;
-  width: 99%;
-  border-radius: 1rem;
+  width: 90%;
+  border-radius: 0.5rem;
   text-align: center;
   opacity: 0.7;
   justify-self: center;

@@ -1,3 +1,10 @@
+.home {
+  position: relative;
+  height: 555px; /* Set the height of the section */
+  /*background-image: url("../../assets/food.png");*/
+  background-size: cover; /* Cover both width and height of the section */
+  background-position: center;
+}
 .homecontent
 {
   position: absolute;

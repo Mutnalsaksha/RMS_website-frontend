@@ -111,3 +111,16 @@ button:hover{
   opacity: 0.9;
   cursor: pointer;
 }
+
+
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  fill: #000000;
+}
+
+.back-arrow:hover {
+  fill: #666666;
+}
